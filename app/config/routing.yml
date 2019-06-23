@@ -1,0 +1,11 @@
+medio_ambiente:
+    resource: "@MedioAmbienteBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+medio_ambiente_logout:
+    path: /logout
+
+#app:
+#    resource: '@AppBundle/Controller/'
+#    type: annotation
