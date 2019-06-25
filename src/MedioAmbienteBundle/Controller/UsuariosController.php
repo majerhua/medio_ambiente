@@ -38,6 +38,24 @@ class UsuariosController extends Controller
                                                     'usuarios' => $usuarios
                                                 )
                                     );
+
+           $correo = "majerhua123@gmail.com";
+       
+           $subject =  'Se ha registrado en la plataforma del medio ambiente!.';
+           $message =  '<html>'.
+                       '<head><title>Medio Ambiente</title></head>'.
+                       '<body><h2>Bienvenid@</h2>'.
+                       'Su usuario y password son los siguientes: '.
+                       '<hr>'.
+                       '<p>Usuario: '.$username.'</p>'.
+                       '<p>Password: '.$password.'</p>'.
+                       '</body>'.
+                       '</html>'
+                   ;
+           $headers = 'From: majerhua123@gmail.com' . "\r\n" .'MIME-Version: 1.0'. "\r\n" .'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
+           mail($correo,$subject,$message,$headers);
+
+
             exit;
         }else{
             return new JsonResponse($result);
