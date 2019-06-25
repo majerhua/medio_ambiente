@@ -129,29 +129,43 @@
     </div>
   </div> 
 
-  <div class="row">
-    <h2>Estadisticas Por Distrito</h2>
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-12" >
-              <h3>Elije el distrito</h3>
-              <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                  <select id="distrito-2" class="form-control">
-                    <option value="">--Seleccionar--</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-        </div>
-    </div>
-  </div> 
-
     <br>
     <div class="row">
       <div class="col-md-8 col-md-offset-2" >
         <canvas id="myChart-2"></canvas>
+      </div>
+    </div>
+
+  <div class="row">
+    <h2>Comparacion Entre Distritos</h2>
+      <div class="col-md-6" >
+          <h3>Elije el distrito 1</h3>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+              <select id="comp-distrito-1" class="form-control">
+                <option value="">--Seleccionar--</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6" >
+          <h3>Elije el distrito 2</h3>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+              <select id="comp-distrito-2" class="form-control">
+                <option value="">--Seleccionar--</option>
+              </select>
+            </div>
+          </div>
+        </div>
+    
+  </div>
+
+    <br>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2" >
+        <canvas id="myChart-3"></canvas>
       </div>
     </div>
 
@@ -221,9 +235,17 @@ $(document).ready(function() {
     $("#distrito-2").empty();
     $("#distrito-2").append("<option value=''>--Seleccionar--</option>");
 
+    $("#comp-distrito-1").empty();
+    $("#comp-distrito-1").append("<option value=''>--Seleccionar--</option>");
+
+    $("#comp-distrito-2").empty();
+    $("#comp-distrito-2").append("<option value=''>--Seleccionar--</option>");
+
     for (let i = 0; i < result.length; i++) {
       $("#distrito").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
       $("#distrito-2").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
+      $("#comp-distrito-1").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
+      $("#comp-distrito-2").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
     }
     console.log("Distritos =>",result);
   }).then(function(){
@@ -374,8 +396,150 @@ $(document).ready(function() {
     }else{
       
     }
-
   });
+
+
+  $("#comp-distrito-1").on('change',function(){
+
+    let idDistrito1 = $("#comp-distrito-1").val();
+    let idDistrito2 = $("#comp-distrito-2").val();
+
+    if( idDistrito1 != '' && idDistrito2 != '' ){
+
+        $.ajax({
+            type:'POST',
+            url:"{{url('contaminacion_distrito1_distrito2')}}",
+            data:{'idDistrito1':idDistrito1,'idDistrito2':idDistrito2},
+            beforeSend:function(){
+            },
+            success:function(data){
+
+                console.log(data);
+
+                // var auxArrayCalidadAireDist1 = [];
+                // var auxArrayCalidadAireDist2 = [];
+
+                // for (let i =0; i < data.length; i++) {
+                //   auxArrayCalidadAireDist1.push(data[i].calidadAire);
+                //   auxArrayCalidadAireDist2.push(data[i].calidadAire);
+                // }
+
+                // var ctx2 = document.getElementById('myChart-2').getContext('2d');
+
+                // var mixedChart2 = new Chart(ctx2, {
+                //     type: 'line',
+                //     data: {
+                //         datasets: [{
+                //             label: 'Distrito 1',
+                //             fill: false,
+                //             data: auxArrayCalidadAireDist1,
+                //             backgroundColor: 'rgb(255, 99, 132)',
+                //             borderColor: 'rgb(255, 99, 132)',
+                //         }, {
+                //             label: 'Distrito 2',
+                //             data: auxArrayCalidadAireDist2,
+                //             fill: false,
+                //             backgroundColor: 'rgb(100, 50, 200)',
+                //             borderColor: 'rgb(100, 50, 200)'
+                //         }],
+                //         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre','Octubre','Noviembre','Diciembre']
+                //     },
+                //     options: {
+                //         responsive: true,
+                //         title: {
+                //             display: true,
+                //             text: 'Comparación Entre Distritos'
+                //         }
+                //     }
+                // });
+
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+          }
+        }); 
+      
+    }else{
+      
+    }
+  });
+
+  $("#comp-distrito-2").on('change',function(){
+
+    let idDistrito1 = $("#comp-distrito-1").val();
+    let idDistrito2 = $("#comp-distrito-2").val();
+
+    console.log("Dist");
+
+    if( idDistrito1 != '' && idDistrito2 != '' ){
+
+        $.ajax({
+            type:'POST',
+            url:"{{url('contaminacion_distrito1_distrito2')}}",
+            data:{'idDistrito1':idDistrito1,'idDistrito2':idDistrito2},
+            beforeSend:function(){
+            },
+            success:function(data){
+
+                console.log(data);
+
+                var arrayDistrito1 = data[0];
+                var arrayDistrito2 = data[1];
+
+                var auxArrayCalidadAireDist1 = [];
+                var auxArrayCalidadAireDist2 = [];
+
+                for (let i =0; i < arrayDistrito1.length; i++) {
+                  auxArrayCalidadAireDist1.push(arrayDistrito1[i].calidadAire);
+                }
+
+                for (let i =0; i < arrayDistrito2.length; i++) {
+                  auxArrayCalidadAireDist2.push(arrayDistrito2[i].calidadAire);
+                }
+
+                var ctx3 = document.getElementById('myChart-3').getContext('2d');
+
+                var nameDistrito1 = $('#comp-distrito-1 option:selected').text();
+                var nameDistrito2 = $('#comp-distrito-2 option:selected').text();
+
+                var mixedChart3 = new Chart(ctx3, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: `${nameDistrito1}`,
+                            fill: false,
+                            data: auxArrayCalidadAireDist1,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                        }, {
+                            label: `${nameDistrito2}`,
+                            data: auxArrayCalidadAireDist2,
+                            fill: false,
+                            backgroundColor: 'rgb(100, 50, 200)',
+                            borderColor: 'rgb(100, 50, 200)'
+                        }],
+                        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre','Octubre','Noviembre','Diciembre']
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: `Comparación entre el distrito ${nameDistrito1} y el distrito ${nameDistrito2}`
+                        }
+                    }
+                });
+
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+          }
+        }); 
+      
+    }else{
+      
+    }
+  });
+
 
   $('.navbar-collapse ul li a').click(function(){
    /* always close responsive nav after click */

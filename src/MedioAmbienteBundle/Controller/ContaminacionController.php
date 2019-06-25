@@ -181,4 +181,24 @@ class ContaminacionController extends Controller
         return new JsonResponse($result);
     }
 
+    /**
+     * @Route("/panel/contaminacion/distrito1-distrito2",name="contaminacion_distrito1_distrito2")
+    */
+    public function contaminacionDistrito1Distrito2Action(Request $request){
+
+        $idDistrito1 = $request->get('idDistrito1');
+        $idDistrito2 = $request->get('idDistrito2');
+
+        $array = array();
+
+        $em = $this->getDoctrine()->getManager(); 
+        $result1 = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getContaminacionByDistrito($idDistrito1);
+        $result2 = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getContaminacionByDistrito($idDistrito2);
+
+        array_push($array,$result1);
+        array_push($array,$result2);
+
+        return new JsonResponse($array);
+    }
+
 }
