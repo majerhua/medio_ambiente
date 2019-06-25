@@ -1,0 +1,23 @@
+{% for user in usuarios %}
+		<tr>
+			<td  class="text-center" style="font-size:13px">{{user['nombre']}}</td>
+			<td  class="text-center" style="font-size:13px">{{user['apellidoPaterno']}} {{user['apellidoMaterno']}}</td>
+			<td  class="text-center" style="font-size:13px">{{user['correo']}}</td>
+			<td  class="text-center" style="font-size:13px">{{user['username']}}</td>
+			<td  class="text-center" style="font-size:13px">{{user['password']}}</td>
+			<td  class="text-center" style="font-size:13px">
+				{% if user['estado'] == 1 %}
+					Activo
+				{% else %}
+					Inactivo
+				{% endif %}
+			</td>
+			<td  class="text-center" style="font-size:13px">
+				<button class="btn btn-info" onclick="getDatosUsuariosByDetalle({{user['id']}})" data-toggle="modal" data-target="#modal-detalle" ><i class="fa fa-edit"></i></button>
+			</td>
+			<td  class="text-center" style="font-size:14px">
+				<button class="btn btn-danger"  data-toggle="modal" data-target="#modal-eliminar" onclick="getDatosUsuariosByDetalle({{user['id']}})"><i class="fa fa-trash"></i></button>
+			</td>
+		</tr>
+
+{% endfor %}

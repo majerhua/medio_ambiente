@@ -1,0 +1,18 @@
+{% for cont in contaminacion %}
+		<tr style="padding:0 !important;" >
+			<td  class="text-center" style="font-size:11px;padding:6px;">{{cont['distrito']}}</td>
+			<td  class="text-center" style="font-size:11px;padding:6px;">{{cont['calidadAire']}}</td>
+			<td  class="text-center" style="font-size:11px;padding:6px;">{{cont['humedad']}}</td>
+			<td  class="text-center" style="font-size:11px;padding:6px;">{{cont['temperatura']}}</td>
+			<td  class="text-center" style="font-size:11px;padding:6px;">{{cont['co2']}}</td>
+			<td  class="text-center" style="font-size:11px;padding:6px;">{{cont['anio']}}</td>
+			<td  class="text-center" style="font-size:11px;padding:6px;">{{cont['mes']}}</td>
+			<td  class="text-center" style="font-size:11px;padding:6px;">
+				<button class="btn btn-info" onclick="getDatosContaminacionByDetalle({{cont['id']}})" data-toggle="modal" data-target="#modal-detalle"  style="padding:2px 8px;"><i class="fa fa-edit" style="font-size:0.8em;" ></i></button>
+			</td>
+			<td  class="text-center" style="font-size:14px;padding:6px;">
+				<button class="btn btn-danger" style="padding:2px 8px;" data-toggle="modal" data-target="#modal-eliminar" onclick="getDatosContaminacionByDetalle({{cont['id']}})"><i class="fa fa-trash" style="font-size:0.8em;"></i></button>
+			</td>
+		</tr>
+
+{% endfor %}

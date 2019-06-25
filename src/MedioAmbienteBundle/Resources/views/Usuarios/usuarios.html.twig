@@ -1,0 +1,421 @@
+
+{% extends '::base.html.twig' %}
+{% block title %}Usuarios{% endblock %}
+
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
+{% endblock %}
+
+{% block body  %}
+
+<div class="sidebar-is-reduced">
+  <header class="l-header">
+    <div class="l-header__inner clearfix">
+      <div class="c-header-icon js-hamburger">
+        <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
+      </div>
+
+      <div class="c-search">
+        
+      </div>
+      <div class="header-icons-group">
+        <div class="c-header-icon logout"><a href="{{url('medio_ambiente_logout')}}" ><i class="fa fa-power-off"></i></a></div>
+      </div>
+    </div>
+  </header>
+  <div class="l-sidebar">
+    <div class="logo">
+      <div class="logo__txt">D</div>
+    </div>
+    <div class="l-sidebar__content">
+        <nav class="c-menu js-menu">
+            <ul class="u-list">
+                <li class="c-menu__item" data-toggle="tooltip" title="Principal">
+                    <a href="{{url('panel')}}">
+                        <div class="c-menu__item__inner"><i class="fa fa-plane"></i>
+                        <div class="c-menu-item__title"><span>Principal</span></div>
+                        </div>
+                    </a>
+                </li>
+          {% if  is_granted('ROLE_ADMIN')  %}
+                <li class="c-menu__item is-active" data-toggle="tooltip" title="Usuarios">
+                    <a href="{{url('usuarios')}}">
+                        <div class="c-menu__item__inner"><i class="fa fa-user"></i>
+                            <div class="c-menu-item__title"><span>Usuarios</span></div>
+                        </div>
+                    </a>
+                </li>
+        {% endif %}
+                <li class="c-menu__item" data-toggle="tooltip" title="Contaminacion">
+                    <a href="{{url('contaminacion')}}">
+                        <div class="c-menu__item__inner"><i class="fa fa-bar-chart"></i>
+                            <div class="c-menu-item__title"><span>Contaminacion</span></div>
+                        </div>
+                    </a>
+                </li>
+
+{#           <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
+            <div class="c-menu__item__inner"><i class="fa fa-bar-chart"></i>
+              <div class="c-menu-item__title"><span>Statistics</span></div>
+            </div>
+          </li>
+          <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Gifts">
+            <div class="c-menu__item__inner"><i class="fa fa-gift"></i>
+              <div class="c-menu-item__title"><span>Gifts</span></div>
+            </div>
+          </li>
+          <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Settings">
+            <div class="c-menu__item__inner"><i class="fa fa-cogs"></i>
+              <div class="c-menu-item__title"><span>Settings</span></div>
+            </div>
+          </li> #}
+
+            </ul>
+        </nav>
+    </div>
+  </div>
+</div>
+<main class="l-main">
+  <div class="content-wrapper content-wrapper--with-bg">
+    <h1 class="page-title">Bienvenido</h1>
+    <div class="page-content">
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label >Nombre</label>
+            <input type="text" id="ins-nombre" class="form-control"   placeholder="Nombre">
+          </div>
+
+          <div class="form-group">
+            <label >A.Paterno</label>
+            <input type="text" id="ins-a-paterno" class="form-control"   placeholder="Apellido Paterno">
+          </div>
+
+          <div class="form-group">
+            <label >A.Materno</label>
+            <input type="text" id="ins-a-materno" class="form-control"   placeholder="Apellido Materno">
+          </div>
+
+          <div class="form-group">
+            <label >Correo</label>
+            <input type="text" id="ins-correo" class="form-control"   placeholder="Correo">
+          </div>
+
+          <div class="form-group">
+            <label >Username</label>
+            <input type="text" id="ins-username" class="form-control"  placeholder="Username">
+          </div>
+
+          <div class="form-group">
+            <label >Password</label>
+            <input type="text" id="ins-password" class="form-control"  placeholder="Password">
+          </div>
+
+          <button id="guardar-usuario" class="btn btn-primary">Guardar Usuario</button>
+        </div>
+        
+        <div class="col-md-8" >
+            <table class="table">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Estado</th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                <tbody id="table-body-usuarios">
+                  {% include 'MedioAmbienteBundle:Usuarios:table_usuarios.html.twig' %}
+                </tbody>
+            </table>          
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+
+
+<div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Desea Eliminar Usuario?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <input type="hidden" id="eli-id">
+          <div class="col-md-3  offset-md-3 ">
+            <button class="btn btn-danger" data-dismiss="modal" onclick="eliminarUsuario()" >Aceptar</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-info" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-detalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <input type="hidden" id="edi-id">
+                <label >Nombre</label>
+                <input type="text" id="edi-nombre" class="form-control"   placeholder="Nombre">
+            </div>
+
+            <div class="form-group">
+                <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
+                    <div style="width:49%;padding-right:1%;">
+                        <label >A.Paterno</label>
+                        <input type="text" id="edi-a-paterno" class="form-control"   placeholder="Apellido Paterno">
+                    </div>
+        
+                    <div style="width:49%;padding-left:1%;">
+                        <label >A.Materno</label>
+                        <input type="text" id="edi-a-materno" class="form-control"   placeholder="Apellido Materno">
+                    </div> 
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="hidden" id="edi-id">
+                <label >Correo</label>
+                <input type="text" id="edi-correo" class="form-control"   placeholder="Correo">
+            </div>
+
+            <div class="form-group">
+                <input type="hidden" id="edi-id">
+                <label >Username</label>
+                <input type="text" id="edi-username" class="form-control"   placeholder="Username">
+            </div>
+
+            <div class="form-group">
+                <label >Password</label>
+                <input type="text" id="edi-password" class="form-control"  placeholder="Password">
+            </div>
+
+            <div class="form-group">
+                <label >Estado</label>
+                <select id="edi-estado" class="form-control">
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+            <button type="button" class="btn btn-primary" onclick="modificarUsuario()" data-dismiss="modal">Modificar</button>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+<script >
+"use strict";
+
+var Dashboard = function () {
+  var global = {
+    tooltipOptions: {
+      placement: "right"
+    },
+    menuClass: ".c-menu"
+  };
+
+  var menuChangeActive = function menuChangeActive(el) {
+    var hasSubmenu = $(el).hasClass("has-submenu");
+    $(global.menuClass + " .is-active").removeClass("is-active");
+    $(el).addClass("is-active");
+
+    // if (hasSubmenu) {
+    //  $(el).find("ul").slideDown();
+    // }
+  };
+
+  var sidebarChangeWidth = function sidebarChangeWidth() {
+    var $menuItemsTitle = $("li .menu-item__title");
+
+    $("body").toggleClass("sidebar-is-reduced sidebar-is-expanded");
+    $(".hamburger-toggle").toggleClass("is-opened");
+
+    if ($("body").hasClass("sidebar-is-expanded")) {
+      $('[data-toggle="tooltip"]').tooltip("destroy");
+    } else {
+      $('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
+    }
+  };
+
+  return {
+    init: function init() {
+      $(".js-hamburger").on("click", sidebarChangeWidth);
+
+      $(".js-menu li").on("click", function (e) {
+        menuChangeActive(e.currentTarget);
+      });
+
+      $('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
+    }
+  };
+}();
+
+Dashboard.init();
+//# sourceURL=pen.js
+</script>
+
+
+  <script>
+    $("#guardar-usuario").on('click',function(){
+
+      
+      var datos = {
+          nombre:$("#ins-nombre").val(),
+          apellidoPaterno: $("#ins-a-paterno").val(),
+          apellidoMaterno: $("#ins-a-materno").val(),
+          correo: $("#ins-correo").val(),
+          username: $("#ins-username").val(),
+          password: $("#ins-password").val()
+      }
+
+      $.ajax({
+          type:'POST',
+          url:"{{url('usuario_guardar')}}",
+          data:datos,
+          beforeSend:function(){
+            console.log("Enviando Datos =>",datos);
+          },
+          success:function(data){
+            if(data!=0){
+              $("#table-body-usuarios").html(data);
+              alertify.success("<p style='color:white;font-weight:bold;' >Se guardar Correctamente!.</p>")
+            }else{
+              alertify.error("<p style='color:white;font-weight:bold;' >El Usuario Ya Existe</p>");
+            }
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>")
+          }
+        }); 
+
+    });
+
+
+    function getDatosUsuariosByDetalle(id){
+      var datos = {'id':id}
+      $.ajax({
+          type:'POST',
+          url:"{{url('usuario_detalle')}}",
+          data:datos,
+          beforeSend:function(){
+            console.log("Enviando Datos =>",datos);
+          },
+          success:function(data){
+            console.log(data);
+            $("#eli-id").val(data[0].id);
+            $("#edi-id").val(data[0].id);
+            $("#edi-nombre").val(data[0].nombre);
+            $("#edi-a-paterno").val(data[0].apellidoPaterno);
+            $("#edi-a-materno").val(data[0].apellidoMaterno);
+            $("#edi-username").val(data[0].username);
+            $("#edi-correo").val(data[0].correo);
+            $("#edi-username").val(data[0].username);
+            $("#edi-password").val(data[0].password);
+            $("#edi-estado").val(data[0].estado);
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>")
+          }
+        });
+    }
+
+    function modificarUsuario(){
+
+      var datos = {
+          id: $("#edi-id").val(),
+          nombre:$("#edi-nombre").val(),
+          apellidoPaterno:$("#edi-a-paterno").val(),
+          apellidoMaterno:$("#edi-a-materno").val(),
+          correo:$("#edi-correo").val(),
+          username: $("#edi-username").val(),
+          password: $("#edi-password").val(),
+          estado: $("#edi-estado").val()
+      }
+
+      $.ajax({
+          type:'POST',
+          url:"{{url('usuario_modificar')}}",
+          data:datos,
+          beforeSend:function(){
+            
+          },
+          success:function(data){
+            if(data!=0){
+              $("#table-body-usuarios").html(data);
+              alertify.success("<p style='color:white;font-weight:bold;' >Se Modifico Correctamente!.</p>")
+            }else{
+              alertify.error("No se pudo modificar usuario, ocurrio un error");
+            }
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>")
+          }
+      }); 
+    }
+
+    function eliminarUsuario(){
+
+
+      var datos = {
+          id: $("#eli-id").val(),
+      }
+
+      $.ajax({
+          type:'POST',
+          url:"{{url('usuario_eliminar')}}",
+          data:datos,
+          beforeSend:function(){
+            
+          },
+          success:function(data){
+
+              $("#table-body-usuarios").html(data);
+              alertify.success("<p style='color:white;font-weight:bold;'>Se Elimino Correctamente!.</p>")
+
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>")
+          }
+      });
+
+    }
+
+  </script>
+{% endblock %}

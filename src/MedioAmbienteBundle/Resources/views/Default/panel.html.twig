@@ -2,6 +2,11 @@
 {% extends '::base.html.twig' %}
 {% block title %}Panel de Administración{% endblock %}
 
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
+{% endblock %}
+
 {% block body  %}
 
 <div class="sidebar-is-reduced">
@@ -26,23 +31,34 @@
     <div class="l-sidebar__content">
       <nav class="c-menu js-menu">
         <ul class="u-list">
-          <li class="c-menu__item is-active" data-toggle="tooltip" title="Flights">
-            <div class="c-menu__item__inner"><i class="fa fa-plane"></i>
-              <div class="c-menu-item__title"><span>Principal</span></div>
-            </div>
-          </li>
-          <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Modules">
-            <div class="c-menu__item__inner"><i class="fa fa-puzzle-piece"></i>
-              <div class="c-menu-item__title"><span>Usuarios</span></div>
-              <div class="c-menu-item__expand js-expand-submenu"><i class="fa fa-angle-down"></i></div>
-            </div>
-            <ul class="c-menu__submenu u-list">
-              <li>Payments</li>
-              <li>Maps</li>
-              <li>Notifications</li>
-            </ul>
-          </li>
-          <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
+
+            <li class="c-menu__item is-active" data-toggle="tooltip" title="Principal">
+                <a href="{{url('panel')}}">
+                    <div class="c-menu__item__inner"><i class="fa fa-plane"></i>
+                    <div class="c-menu-item__title"><span>Principal</span></div>
+                    </div>
+                </a>
+            </li>
+          
+          {% if  is_granted('ROLE_ADMIN')  %}
+            <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Usuarios">
+                <a href="{{url('usuarios')}}">
+                    <div class="c-menu__item__inner"><i class="fa fa-user"></i>
+                        <div class="c-menu-item__title"><span>Usuarios</span></div>
+                    </div>
+                </a>
+            </li>
+          {% endif %}
+          
+                <li class="c-menu__item" data-toggle="tooltip" title="Contaminacion">
+                    <a href="{{url('contaminacion')}}">
+                        <div class="c-menu__item__inner"><i class="fa fa-bar-chart"></i>
+                            <div class="c-menu-item__title"><span>Contaminacion</span></div>
+                        </div>
+                    </a>
+                </li>
+
+{#           <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Statistics">
             <div class="c-menu__item__inner"><i class="fa fa-bar-chart"></i>
               <div class="c-menu-item__title"><span>Statistics</span></div>
             </div>
@@ -56,7 +72,8 @@
             <div class="c-menu__item__inner"><i class="fa fa-cogs"></i>
               <div class="c-menu-item__title"><span>Settings</span></div>
             </div>
-          </li>
+          </li> #}
+
         </ul>
       </nav>
     </div>
@@ -64,8 +81,10 @@
 </div>
 <main class="l-main">
   <div class="content-wrapper content-wrapper--with-bg">
-    <h1 class="page-title">Dashboard</h1>
-    <div class="page-content">Content goes here</div>
+    <h1 class="page-title">Bienvenido</h1>
+    <div class="page-content">
+      Calidad del Medio Ambiente
+    </div>
   </div>
 </main>
 

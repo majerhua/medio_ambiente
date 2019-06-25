@@ -1,0 +1,524 @@
+
+{% extends '::base.html.twig' %}
+{% block title %}Contaminación{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endblock %}
+
+{% block body  %}
+
+<div class="sidebar-is-reduced">
+
+  <header class="l-header">
+    <div class="l-header__inner clearfix">
+      <div class="c-header-icon js-hamburger">
+        <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
+      </div>
+
+      <div class="c-search">
+        <label class="c-search__input" placeholder="Gestión de la contaminacion por distrito">Gestión de Contaminación por Distrito</label>
+      </div>
+
+      <div class="header-icons-group">
+        <div class="c-header-icon logout"><a href="{{url('medio_ambiente_logout')}}" ><i class="fa fa-power-off"></i></a></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="l-sidebar">
+    <div class="logo">
+      <div class="logo__txt">D</div>
+    </div>
+    <div class="l-sidebar__content">
+        <nav class="c-menu js-menu">
+            <ul class="u-list">
+                <li class="c-menu__item" data-toggle="tooltip" title="Principal">
+                    <a href="{{url('panel')}}">
+                        <div class="c-menu__item__inner"><i class="fa fa-plane"></i>
+                        <div class="c-menu-item__title"><span>Principal</span></div>
+                        </div>
+                    </a>
+                </li>
+          {% if  is_granted('ROLE_ADMIN')  %}
+                <li class="c-menu__item" data-toggle="tooltip" title="Usuarios">
+                    <a href="{{url('usuarios')}}">
+                        <div class="c-menu__item__inner"><i class="fa fa-user"></i>
+                            <div class="c-menu-item__title"><span>Usuarios</span></div>
+                        </div>
+                    </a>
+                </li>
+        {% endif %}
+
+                <li class="c-menu__item is-active" data-toggle="tooltip" title="Contaminación">
+                    <a href="{{url('contaminacion')}}">
+                        <div class="c-menu__item__inner"><i class="fa fa-bar-chart"></i>
+                            <div class="c-menu-item__title"><span>Contaminación</span></div>
+                        </div>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+  </div>
+</div>
+<main class="l-main">
+  <div class="content-wrapper content-wrapper--with-bg">
+
+    <div class="page-content">
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label >Distrito</label>
+            <select id="ins-distrito" class="form-control">
+              <option value="">--Seleccionar--</option>
+            </select>
+          </div>
+
+            <div class="form-group">
+                <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
+                    <div style="width:49%;padding-right:1%;">
+                      <label >Calidad Aire(INCA)</label>
+                      <input type="text" id="ins-calidad-aire" class="form-control"   placeholder="Calidad Aire(INCA)">
+                    </div>
+        
+                    <div style="width:49%;padding-left:1%;">
+                      <label >Humedad</label>
+                      <input type="text" id="ins-humedad" class="form-control"   placeholder="Humedad">
+                    </div> 
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
+                    <div style="width:49%;padding-right:1%;">
+                      <label >Temperatura</label>
+                      <input type="text" id="ins-temperatura" class="form-control"   placeholder="Temperatura">
+                    </div>
+        
+                    <div style="width:49%;padding-left:1%;">
+                      <label >CO2</label>
+                      <input type="text" id="ins-co2" class="form-control"  placeholder="CO2">
+                    </div> 
+                </div>
+            </div>
+
+          <div class="form-group">
+            <label >Mes</label>
+            <select  id="ins-mes" class="form-control">
+              <option value="">--Seleccionar--</option>
+              <option value="Enero">Enero</option>
+              <option value="Febrero">Febrero</option>
+              <option value="Marzo">Marzo</option>
+              <option value="Abril">Abril</option>
+              <option value="Mayo">Mayo</option>
+              <option value="Junio">Junio</option>
+              <option value="Julio">Julio</option>
+              <option value="Agosto">Agosto</option>
+              <option value="Septiembre">Septiembre</option>
+              <option value="Octubre">Octubre</option>
+              <option value="Noviembre">Noviembre</option>
+              <option value="Diciembre">Diciembre</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label >Anio</label>
+            <select  id="ins-anio" class="form-control">
+              <option value="">--Seleccionar--</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+
+          <button id="guardar-contaminacion" class="btn btn-primary">Guardar</button>
+        </div>
+        
+        <div class="col-md-8" >
+            <table class="table" id="table-contaminacion" >
+                <thead>
+                    <th>Distrito</th>
+                    <th>Calidad Aire(INCA)</th>
+                    <th>Humedad</th>
+                    <th>Temperatura</th>
+                    <th>Co2</th>
+                    <th>Anio</th>
+                    <th>Mes</th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                <tbody id="table-body-contaminacion">
+                  {% include 'MedioAmbienteBundle:Contaminacion:table_contaminacion.html.twig' %}
+                </tbody>
+            </table>          
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+
+
+<div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Desea Eliminar Registro?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <input type="hidden" id="eli-id">
+          <div class="col-md-3  offset-md-3 ">
+            <button class="btn btn-danger" data-dismiss="modal" onclick="eliminarContaminacion()" >Aceptar</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-info" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-detalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <input type="hidden" id="edi-id">
+                <label >Distrito</label>
+                <select id="edi-distrito" class="form-control">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
+                    <div style="width:49%;padding-right:1%;">
+                      <label >Calidad Aire(INCA)</label>
+                      <input type="text" id="edi-calidad-aire" class="form-control"   placeholder="Calidad Aire(INCA)">
+                    </div>
+        
+                    <div style="width:49%;padding-left:1%;">
+                      <label >Humedad</label>
+                      <input type="text" id="edi-humedad" class="form-control"   placeholder="Humedad">
+                    </div> 
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
+                    <div style="width:49%;padding-right:1%;">
+                      <label >Temperatura</label>
+                      <input type="text" id="edi-temperatura" class="form-control"  placeholder="Temperatura">
+                    </div>
+        
+                    <div style="width:49%;padding-left:1%;">
+                      <label >CO2</label>
+                      <input type="text" id="edi-co2" class="form-control"  placeholder="CO2">
+                    </div> 
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
+                    <div style="width:49%;padding-right:1%;">
+                      <label >Mes</label>
+                      <select  id="edi-mes" class="form-control">
+                        <option value="">--Seleccionar--</option>
+                        <option value="Enero">Enero</option>
+                        <option value="Febrero">Febrero</option>
+                        <option value="Marzo">Marzo</option>
+                        <option value="Abril">Abril</option>
+                        <option value="Mayo">Mayo</option>
+                        <option value="Junio">Junio</option>
+                        <option value="Julio">Julio</option>
+                        <option value="Agosto">Agosto</option>
+                        <option value="Septiembre">Septiembre</option>
+                        <option value="Octubre">Octubre</option>
+                        <option value="Noviembre">Noviembre</option>
+                        <option value="Diciembre">Diciembre</option>
+                      </select>
+                    </div>
+        
+                    <div style="width:49%;padding-left:1%;">
+                      <label >Anio</label>
+                      <select  id="edi-anio" class="form-control">
+                        <option value="">--Seleccionar--</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                      </select>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+            <button type="button" class="btn btn-primary" onclick="modificarContaminacion()" data-dismiss="modal">Modificar</button>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script >
+"use strict";
+
+$('#table-contaminacion').DataTable();
+
+var Dashboard = function () {
+  var global = {
+    tooltipOptions: {
+      placement: "right"
+    },
+    menuClass: ".c-menu"
+  };
+
+  var menuChangeActive = function menuChangeActive(el) {
+    var hasSubmenu = $(el).hasClass("has-submenu");
+    $(global.menuClass + " .is-active").removeClass("is-active");
+    $(el).addClass("is-active");
+
+    // if (hasSubmenu) {
+    //  $(el).find("ul").slideDown();
+    // }
+  };
+
+  var sidebarChangeWidth = function sidebarChangeWidth() {
+    var $menuItemsTitle = $("li .menu-item__title");
+
+    $("body").toggleClass("sidebar-is-reduced sidebar-is-expanded");
+    $(".hamburger-toggle").toggleClass("is-opened");
+
+    if ($("body").hasClass("sidebar-is-expanded")) {
+      $('[data-toggle="tooltip"]').tooltip("destroy");
+    } else {
+      $('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
+    }
+  };
+
+  return {
+    init: function init() {
+      $(".js-hamburger").on("click", sidebarChangeWidth);
+
+      $(".js-menu li").on("click", function (e) {
+        menuChangeActive(e.currentTarget);
+      });
+
+      $('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
+    }
+  };
+}();
+
+Dashboard.init();
+//# sourceURL=pen.js
+</script>
+
+
+  <script>
+
+ 
+
+  function getDistritos(){
+
+    return new Promise( (resolve,reject)=>{
+      $.ajax({
+          type:'POST',
+          url:"{{url('distritos')}}",
+          beforeSend:function(){
+          },
+          success:function(data){
+            resolve(data);
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+            reject(error);
+          }
+        }); 
+    });
+  }
+
+  var distritos = getDistritos();
+
+  distritos.then(function(result){
+
+    $("#ins-distrito").empty();
+    $("#ins-distrito").append("<option value=''>--Seleccionar--</option>");
+
+    $("#edi-distrito").empty();
+    $("#edi-distrito").append("<option value=''>--Seleccionar--</option>");
+
+    for (let i = 0; i < result.length; i++) {
+      $("#ins-distrito").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
+      $("#edi-distrito").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
+    }
+    console.log("Distritos =>",result);
+  });
+
+
+    $("#guardar-contaminacion").on('click',function(){
+      
+      var datos = {
+          distrito:$("#ins-distrito").val(),
+          calidadAire: $("#ins-calidad-aire").val(),
+          humedad: $("#ins-humedad").val(),
+          temperatura: $("#ins-temperatura").val(),
+          co2: $("#ins-co2").val(),
+          anio: $("#ins-anio").val(),
+          mes: $("#ins-mes").val()
+      }
+
+      $.ajax({
+          type:'POST',
+          url:"{{url('contaminacion_guardar')}}",
+          data:datos,
+          beforeSend:function(){
+            console.log("Enviando Datos =>",datos);
+          },
+          success:function(data){
+            if(data!=0){
+              
+              var table = $('#table-contaminacion').DataTable();
+              table.destroy();
+              $("#table-body-contaminacion").html(data);
+              $('#table-contaminacion').DataTable();
+
+
+              alertify.success("<p style='color:white;font-weight:bold;' >Se guardar Correctamente!.</p>")
+            }else{
+              alertify.error("El Registro Ya Existe");
+            }
+          },
+          error:function(error){
+            alertify.error("<p style='color:white;font-weight:bold;'>Ocurrio un Error en el Sistema!.</p>")
+          }
+        }); 
+
+    });
+
+
+    function getDatosContaminacionByDetalle(id){
+      var datos = {'id':id}
+      $.ajax({
+          type:'POST',
+          url:"{{url('contaminacion_detalle')}}",
+          data:datos,
+          beforeSend:function(){
+            console.log("Enviando Datos =>",datos);
+          },
+          success:function(data){
+            console.log(data);
+            $("#eli-id").val(data[0].id);
+            $("#edi-id").val(data[0].id);
+            $("#edi-distrito").val(data[0].idDistrito);
+            $("#edi-calidad-aire").val(data[0].calidadAire);
+            $("#edi-humedad").val(data[0].humedad);
+            $("#edi-temperatura").val(data[0].temperatura);
+            $("#edi-co2").val(data[0].co2);
+            $("#edi-anio").val(data[0].anio);
+            $("#edi-mes").val(data[0].mes);
+          },
+          error:function(error){
+            alertify.error("<p style='color:white;font-weight:bold;' >Ocurrio un Error en el Sistema!.</p>")
+          }
+        });
+    }
+
+    function modificarContaminacion(){
+
+      var datos = {
+          id: $("#edi-id").val(),
+          distrito:$("#edi-distrito").val(),
+          calidadAire:$("#edi-calidad-aire").val(),
+          humedad:$("#edi-humedad").val(),
+          temperatura:$("#edi-temperatura").val(),
+          co2: $("#edi-co2").val(),
+          anio: $("#edi-anio").val(),
+          mes: $("#edi-mes").val()
+      }
+
+      $.ajax({
+          type:'POST',
+          url:"{{url('contaminacion_modificar')}}",
+          data:datos,
+          beforeSend:function(){
+            
+          },
+          success:function(data){
+            if(data!=0){
+
+              var table = $('#table-contaminacion').DataTable();
+              table.destroy();
+              $("#table-body-contaminacion").html(data);
+              $('#table-contaminacion').DataTable();
+              alertify.success("<p style='color:white;font-weight:bold;' >Se Modifico Correctamente!.</p>");
+
+            }else{
+              alertify.error("No se pudo modificar usuario, ocurrio un error");
+            }
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>")
+          }
+      }); 
+    }
+
+    function eliminarContaminacion(){
+
+
+      var datos = {
+          id: $("#eli-id").val(),
+      }
+
+      $.ajax({
+          type:'POST',
+          url:"{{url('contaminacion_eliminar')}}",
+          data:datos,
+          beforeSend:function(){
+            console.log("Id a Eliminar =>",$("#eli-id").val());
+          },
+          success:function(data){
+
+              var table = $('#table-contaminacion').DataTable();
+              table.destroy();
+              $("#table-body-contaminacion").html(data);
+              $('#table-contaminacion').DataTable();
+              
+              alertify.success("<p style='color:white;font-weight:bold;' >Se Elimino Correctamente!.</p>")
+
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>")
+          }
+      });
+
+    }
+
+  </script>
+{% endblock %}

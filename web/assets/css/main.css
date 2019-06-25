@@ -197,7 +197,7 @@ h3 {
   height: 100%;
   width: 100%;
   display: flex;
-  height: 70px;
+  height: 50px;
   align-items: center;
   justify-content: stretch;
   border-bottom: 1px solid;
@@ -210,7 +210,7 @@ h3 {
 .c-search {
   display: flex;
   height: 100%;
-  width: 350px;
+  width: 600px;
 }
 .c-search__input {
   border-top-right-radius: 0px;
@@ -221,6 +221,8 @@ h3 {
   border: 0;
   font-size: 14px;
   padding: 0 20px;
+  padding-top: 13px;
+  padding-left: 30px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
@@ -422,7 +424,7 @@ h3 {
 main.l-main {
   width: 100%;
   height: 100%;
-  padding: 70px 0 0 70px;
+  padding: 40px 0 0 70px;
   -webkit-transition: padding 0.5s ease-in-out;
   -moz-transition: padding 0.5s ease-in-out;
   -ms-transition: padding 0.5s ease-in-out;
@@ -435,11 +437,12 @@ main.l-main .content-wrapper {
 }
 main.l-main .content-wrapper .page-content {
   border-top: 1px solid #d0d0d0;
-  padding-top: 25px;
+  padding-top: 10px;
 }
 main.l-main .content-wrapper--with-bg .page-content {
   background: #fff;
   border-radius: 3px;
+  overflow:scroll;
   border: 1px solid #d0d0d0;
   padding: 25px;
 }
@@ -450,4 +453,9 @@ main.l-main .page-title {
 }
 .sidebar-is-expanded main.l-main {
   padding-left: 220px;
+}
+
+.form-control{
+  padding: 6px !important;
+  font-size: 14px !important;
 }

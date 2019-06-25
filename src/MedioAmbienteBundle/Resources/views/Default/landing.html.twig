@@ -1,0 +1,400 @@
+ 
+{% extends '::base.html.twig' %}
+{% block title %}Landing Page{% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{asset('assets/css/landing.css')}}">
+{% endblock %}
+
+{% block body  %}
+
+<div>
+  
+<nav class="navbar navbar-fixed-top" id="nav-bar">
+  <div class="container-fluid">    
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><i class="far fa-sun"></i> Medio Ambiente</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#home">Inicio</a></li>
+        <li><a href="#indicadores">Indicadores</a></li>
+        <li><a href="#estadisticas">Estadistica</a></li>
+        <li><a href="{{url('login')}}">Login</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+<header id="home">
+  <div class="text-box">
+    <h1>Por el bien del medio ambiente</h1>
+    <p>Descubre el estado ambiental en tu distrito</p>
+    <a class="btn" href="#indicadores">Indicadores</a>
+    <a class="btn" href="#estadisticas">Ver Estadisticas</a>
+  </div>
+</header>
+
+<section class="section-products" id="indicadores">
+  <div class="row">
+    <h2>Indicadores</h2>
+  </div>
+  <div class="row">
+    <div class="box">
+      {# <h3>Pistachio</h3> #}
+        <p>Los indicadores ambientales permiten describir y analizar un aspecto significativo del estado del ambiente, la sustentabilidad de los recursos naturales y su relación con las actividades humanas; presenta información científicamente sustentada sobre las condiciones y tendencias ambientales.</p>
+        <p>
+          El sector cuenta con indicadores ambientales principalmente en temas de agua, aire, residuos sólidos, cambio climático, salud ambiental y de gestión ambiental. Asimismo, cuenta con indicadores de desarrollo sostenible; esto en concordancia a los principales acuerdos y compromisos ambientales de orden nacional, regional e internacional.
+        </p>
+        <p>Los indicadores ambientales constituyen una herramienta para informar sobre el estado del medio ambiente, evaluar el desempeño de políticas, programas y proyectos ambientales. La importancia de los indicadores ambientales contribuye a que los principales actores y tomadores de decisiones, implementen medidas y acciones oportunas en la gestión ambiental en el ámbito nacional, regional y local.</p>
+        <p>
+          Los activos naturales del pais, enfrentan diferentes desafíos, y las acciones del Estado están orientadas a aprovecharlos de manera eficiente y responsable. Las variaciones y cambios que presenta el medio ambiente, afectan las condiciones de vida de la población; y también a las diferentes actividades productivas, económicas y sociales.
+        </p>
+    </div>
+  </div>
+</section>
+
+<section class="section-features" id="estadisticas">
+  <div class="row">
+    <h2>Estadisticas Por Distrito e Indicador</h2>
+  </div>  
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <i class="fa fa-bar-chart"></i>
+
+      <div class="row">
+
+        <div class="col-md-6" >
+          <h3>Elije el distrito</h3>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+              <select id="distrito" class="form-control">
+                <option value="">--Seleccionar--</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6" >
+          <h3>Elije el Indicador</h3>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+              <select id="indicador" class="form-control" disabled>
+                <option value="">--Seleccionar--</option>
+                <option value="1">Calidad Aire</option>
+                <option value="2">Humedad</option>
+                <option value="3">Temperatura</option>
+                <option value="4">CO2</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    <br>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2" >
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+
+    </div>
+ </div>
+
+  <div class="row">
+    <h2>Estadisticas Por Distrito</h2>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12" >
+              <h3>Elije el distrito</h3>
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                  <select id="distrito-2" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+  </div> 
+
+  <div class="row">
+    <h2>Estadisticas Por Distrito</h2>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12" >
+              <h3>Elije el distrito</h3>
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                  <select id="distrito-2" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+  </div> 
+
+    <br>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2" >
+        <canvas id="myChart-2"></canvas>
+      </div>
+    </div>
+
+</section>
+
+<footer>
+  <hr>
+  <div class="row">
+    <div class="contact">
+      <a href="https://github.com/linh4" target="_blank">
+        <span class="icon"><i class="fab fa-github"></i></span></a>
+      <a href="https://codepen.io/linh4/" target="_blank">
+        <span class="icon"><i class="fab fa-codepen"></i></span></a>
+      <a href="https://www.freecodecamp.org/linh4" target="_blank">
+        <span class="icon"><i class="fab fa-free-code-camp"></i></span></a>
+    </div>
+  </div>
+  <p>&copy 2019 Medio Ambiente</p>
+</footer>    
+                  
+
+</div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+
+<script>
+
+
+var arrayIndicadores = [];
+  
+$(document).ready(function() {
+
+  var arrayIndicadores = ["Calidad aire","Humedad","Temperatura","CO2"];
+
+  function getDistritos(){
+
+    return new Promise( (resolve,reject)=>{
+      $.ajax({
+          type:'GET',
+          url:"{{url('distritos')}}",
+          beforeSend:function(){
+          },
+          success:function(data){
+            resolve(data);
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+            reject(error);
+          }
+        }); 
+    });
+  }
+
+  var distritos = getDistritos();
+
+  distritos.then(function(result){
+
+    $("#distrito").empty();
+    $("#distrito").append("<option value=''>--Seleccionar--</option>");
+
+    $("#distrito-2").empty();
+    $("#distrito-2").append("<option value=''>--Seleccionar--</option>");
+
+    for (let i = 0; i < result.length; i++) {
+      $("#distrito").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
+      $("#distrito-2").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
+    }
+    console.log("Distritos =>",result);
+  }).then(function(){
+
+  });
+
+  $("#distrito").on('change',function(){
+    let idDistrito = $("#distrito").val();
+
+    if(idDistrito != ''){
+      $("#indicador").removeAttr('disabled','disabled');
+    }else{
+      $("#indicador").attr('disabled','disabled');
+    }
+
+  });
+
+  $("#indicador").on('change',function(){
+    let idIndicador = $("#indicador").val();
+
+    if(idIndicador != ''){
+
+        $.ajax({
+            type:'POST',
+            url:"{{url('contaminacion_distrito_indicador')}}",
+            data:{'idDistrito':$("#distrito").val(),'idIndicador':idIndicador},
+            beforeSend:function(){
+            },
+            success:function(data){
+
+                console.log(data);
+                var auxArray = [];
+
+                for (let i =0; i < data.length; i++) {
+                  auxArray.push(data[i].indicador);
+                }
+
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                    type: 'line',
+                    // The data for our dataset
+                    data: {
+                        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre','Octubre','Noviembre','Diciembre'],
+                        datasets: [{
+                            label: `${arrayIndicadores[parseInt(idIndicador) - 1]} Mensual`,
+                            backgroundColor: 'rgb(220, 138, 44)',
+                            borderColor: 'rgb(220, 138, 44)',
+                            data: auxArray
+                        }]
+                    },
+                    // Configuration options go here
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Grafica Indocadores por Distrito'
+                        }
+                    }
+                });
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+          }
+        }); 
+      
+    }else{
+      
+    }
+
+  });
+
+
+  $("#distrito-2").on('change',function(){
+    let idDistrito = $("#distrito-2").val();
+
+    if(idDistrito != ''){
+
+        $.ajax({
+            type:'POST',
+            url:"{{url('contaminacion_distrito')}}",
+            data:{'idDistrito':$("#distrito-2").val()},
+            beforeSend:function(){
+            },
+            success:function(data){
+
+                console.log(data);
+
+                var auxArrayCalidadAire = [];
+                var auxArrayHumedad = [];
+                var auxArrayTemperatura = [];
+                var auxArrayCO2 = [];
+
+                for (let i =0; i < data.length; i++) {
+                  auxArrayCalidadAire.push(data[i].calidadAire);
+                  auxArrayHumedad.push(data[i].humedad);
+                  auxArrayTemperatura.push(data[i].temperatura);
+                  auxArrayCO2.push(data[i].co2);
+                }
+
+                var ctx2 = document.getElementById('myChart-2').getContext('2d');
+
+                var mixedChart2 = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: 'Calidad del Aire(INCA)',
+                            fill: false,
+                            data: auxArrayCalidadAire,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                        }, {
+                            label: 'Humedad',
+                            data: auxArrayHumedad,
+                            fill: false,
+                            backgroundColor: 'rgb(100, 50, 200)',
+                            borderColor: 'rgb(100, 50, 200)'
+                        }, {
+                            label: 'Temperatura',
+                            data: auxArrayTemperatura,
+                            fill: false,
+                            backgroundColor: 'rgb(255, 10, 10)',
+                            borderColor: 'rgb(255, 10, 10)'
+                        }, {
+                            label: 'CO2',
+                            data: auxArrayCO2,
+                            fill: false,
+                            backgroundColor: 'rgb(20, 250, 0)',
+                            borderColor: 'rgb(20, 250, 0)'
+                        }],
+                        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre','Octubre','Noviembre','Diciembre']
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Grafica Multilinea de Indicadores'
+                        }
+                    }
+                });
+
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+          }
+        }); 
+      
+    }else{
+      
+    }
+
+  });
+
+  $('.navbar-collapse ul li a').click(function(){
+   /* always close responsive nav after click */
+  $('.navbar-toggle:visible').click();
+    }); 
+  
+ $('a[href*="#"]:not([href="#"])').click((e) => {
+    const target = $(e.target.hash);
+
+    if (target.length) {
+      $('html, body').animate({
+        scrollTop: target.offset().top - 50
+      }, 1000);
+
+      return false;
+    }
+  });
+});
+
+</script>
+
+{% endblock %}

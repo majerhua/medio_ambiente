@@ -17,6 +17,15 @@ use SudJuvenilesBundle\Entity\Usuarios;
 
 class DefaultController extends Controller
 {
+
+    /**
+     * @Route("/",name="landing")
+     */
+    public function landingAction(Request $request)
+    {
+        return $this->render('MedioAmbienteBundle:Default:landing.html.twig');
+    }
+
     /**
      * @Route("/panel",name="panel")
      */
@@ -24,6 +33,7 @@ class DefaultController extends Controller
     {
         return $this->render('MedioAmbienteBundle:Default:panel.html.twig');
     }
+
 
     /**
      * @Route("/login", name="login")
