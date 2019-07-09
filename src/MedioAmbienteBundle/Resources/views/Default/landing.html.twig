@@ -73,8 +73,30 @@
 
       <div class="row">
 
-        <div class="col-md-6" >
-          <h3>Elije el distrito</h3>
+        <div class="col-md-3" >
+          <h3>Departamento</h3>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+              <select id="departamento" class="form-control">
+                <option value="">--Seleccionar--</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3" >
+          <h3>Provincia</h3>
+          <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+              <select id="provincia" class="form-control">
+                <option value="">--Seleccionar--</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3" >
+          <h3>Distrito</h3>
           <div class="row">
             <div class="col-md-10 col-md-offset-2">
               <select id="distrito" class="form-control">
@@ -84,8 +106,8 @@
           </div>
         </div>
 
-        <div class="col-md-6" >
-          <h3>Elije el Indicador</h3>
+        <div class="col-md-3" >
+          <h3>Indicador</h3>
           <div class="row">
             <div class="col-md-10 col-md-offset-2">
               <select id="indicador" class="form-control" disabled>
@@ -111,23 +133,58 @@
  </div>
 
   <div class="row">
-    <h2>Estadisticas Por Distrito</h2>
-    <div class="col-md-12">
+
+    <div class="row" >
+      <h2>Estadisticas Por Distrito</h2>
+    </div>
+
+    <div class="row" >
+
+      <div class="col-md-4">
         <div class="row">
             <div class="col-md-12" >
-              <h3>Elije el distrito</h3>
+              <h3>Departamento</h3>
               <div class="row">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-10 col-md-offset-1">
+                  <select id="departamento-2" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12" >
+              <h3>Provincia</h3>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <select id="provincia-2" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12" >
+              <h3>Distrito</h3>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
                   <select id="distrito-2" class="form-control">
                     <option value="">--Seleccionar--</option>
                   </select>
                 </div>
               </div>
             </div>
-
         </div>
+      </div>
     </div>
-  </div> 
 
     <br>
     <div class="row">
@@ -136,38 +193,138 @@
       </div>
     </div>
 
+  </div> 
+
   <div class="row">
-    <h2>Comparacion Entre Distritos</h2>
-      <div class="col-md-6" >
-          <h3>Elije el distrito 1</h3>
-          <div class="row">
-            <div class="col-md-10 col-md-offset-2">
-              <select id="comp-distrito-1" class="form-control">
-                <option value="">--Seleccionar--</option>
-              </select>
+
+    <div class="row">
+      <h2>Comparacion de Maximo Indice de Contaminacion Por Distritos</h2>
+    </div>
+
+    <div class="row" >
+
+      <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12" >
+              <h3>Departamento</h3>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <select id="departamento-3" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                  </select>
+                </div>
+              </div>
             </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12" >
+              <h3>Provincia</h3>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <select id="provincia-3" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div> 
+
+      <div class="col-md-4" >
+        <h3>Indicador</h3>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-2">
+            <select id="indicador-2" class="form-control" disabled>
+              <option value="">--Seleccionar--</option>
+              <option value="1">Calidad Aire</option>
+              <option value="2">Humedad</option>
+              <option value="3">Temperatura</option>
+              <option value="4">CO2</option>
+            </select>
           </div>
         </div>
+      </div>
 
-        <div class="col-md-6" >
-          <h3>Elije el distrito 2</h3>
-          <div class="row">
-            <div class="col-md-10 col-md-offset-2">
-              <select id="comp-distrito-2" class="form-control">
-                <option value="">--Seleccionar--</option>
-              </select>
-            </div>
-          </div>
-        </div>
-    
-  </div>
+    </div>
 
-    <br>
+    </br>
+
     <div class="row">
       <div class="col-md-8 col-md-offset-2" >
         <canvas id="myChart-3"></canvas>
       </div>
     </div>
+  
+  </div>
+
+
+  <div class="row">
+
+    <div class="row">
+      <h2>Comparación de Minimo Indice de Contaminacion Por Distritos</h2>
+    </div>
+
+    <div class="row" >
+
+      <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12" >
+              <h3>Departamento</h3>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <select id="departamento-4" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12" >
+              <h3>Provincia</h3>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <select id="provincia-4" class="form-control">
+                    <option value="">--Seleccionar--</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div> 
+
+      <div class="col-md-4" >
+        <h3>Indicador</h3>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-2">
+            <select id="indicador-3" class="form-control" disabled>
+              <option value="">--Seleccionar--</option>
+              <option value="1">Calidad Aire</option>
+              <option value="2">Humedad</option>
+              <option value="3">Temperatura</option>
+              <option value="4">CO2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    </br>
+
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2" >
+        <canvas id="myChart-4"></canvas>
+      </div>
+    </div>
+  
+  </div>
 
 </section>
 
@@ -206,12 +363,12 @@ $(document).ready(function() {
 
   var arrayIndicadores = ["Calidad aire","Humedad","Temperatura","CO2"];
 
-  function getDistritos(){
+  function getDepartamentos(){
 
     return new Promise( (resolve,reject)=>{
       $.ajax({
           type:'GET',
-          url:"{{url('distritos')}}",
+          url:"{{url('departamentos')}}",
           beforeSend:function(){
           },
           success:function(data){
@@ -225,32 +382,89 @@ $(document).ready(function() {
     });
   }
 
-  var distritos = getDistritos();
+  var departamentos = getDepartamentos();
 
-  distritos.then(function(result){
+  departamentos.then(function(result){
 
-    $("#distrito").empty();
-    $("#distrito").append("<option value=''>--Seleccionar--</option>");
+    $("#departamento").empty();
+    $("#departamento").append("<option value=''>--Seleccionar--</option>");
 
-    $("#distrito-2").empty();
-    $("#distrito-2").append("<option value=''>--Seleccionar--</option>");
+    $("#departamento-2").empty();
+    $("#departamento-2").append("<option value=''>--Seleccionar--</option>");
 
-    $("#comp-distrito-1").empty();
-    $("#comp-distrito-1").append("<option value=''>--Seleccionar--</option>");
+    $("#departamento-3").empty();
+    $("#departamento-3").append("<option value=''>--Seleccionar--</option>");
 
-    $("#comp-distrito-2").empty();
-    $("#comp-distrito-2").append("<option value=''>--Seleccionar--</option>");
+    $("#departamento-4").empty();
+    $("#departamento-4").append("<option value=''>--Seleccionar--</option>");
 
     for (let i = 0; i < result.length; i++) {
-      $("#distrito").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
-      $("#distrito-2").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
-      $("#comp-distrito-1").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
-      $("#comp-distrito-2").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
+      $("#departamento").append(`<option value='${result[i].id}'>${result[i].name}</option>`);
+      $("#departamento-2").append(`<option value='${result[i].id}'>${result[i].name}</option>`);
+      $("#departamento-3").append(`<option value='${result[i].id}'>${result[i].name}</option>`);
+      $("#departamento-4").append(`<option value='${result[i].id}'>${result[i].name}</option>`);
     }
-    console.log("Distritos =>",result);
+    console.log("Departamentos =>",result);
   }).then(function(){
 
   });
+
+  $("#departamento").on('change',function(){
+
+    $.ajax({
+        type:'POST',
+        url:"{{url('provincias')}}",
+        data:{'idDepartamento':$("#departamento").val()},
+        beforeSend:function(){
+        },
+        success:function(data){
+          console.log("Provincias  => ",data);
+
+          $("#provincia").empty();
+          $("#provincia").append("<option value=''>--Seleccionar--</option>");
+
+          $("#distrito").empty();
+          $("#distrito").append("<option value=''>--Seleccionar--</option>");
+
+          for (let i = 0; i < data.length; i++) {
+            $("#provincia").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+          }
+
+        },
+        error:function(error){
+          alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+        }
+    });
+
+  });
+
+  $("#provincia").on('change',function(){
+
+    var datos = {'idDepartamento':$("#departamento").val(),'idProvincia':$("#provincia").val()};
+
+    $.ajax({
+        type:'POST',
+        url:"{{url('distritos')}}",
+        data:datos,
+        beforeSend:function(){
+           console.log("Enviando datos =>",datos);
+        },
+        success:function(data){
+          console.log("Distritos  => ",data);
+
+          $("#distrito").empty();
+          $("#distrito").append("<option value=''>--Seleccionar--</option>");
+
+          for (let i = 0; i < data.length; i++) {
+            $("#distrito").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+          }
+        },
+        error:function(error){
+          alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+        }
+    });
+  });
+
 
   $("#distrito").on('change',function(){
     let idDistrito = $("#distrito").val();
@@ -260,7 +474,6 @@ $(document).ready(function() {
     }else{
       $("#indicador").attr('disabled','disabled');
     }
-
   });
 
   $("#indicador").on('change',function(){
@@ -315,9 +528,64 @@ $(document).ready(function() {
     }else{
       
     }
+  });
+
+
+  $("#departamento-2").on('change',function(){
+
+    $.ajax({
+        type:'POST',
+        url:"{{url('provincias')}}",
+        data:{'idDepartamento':$("#departamento-2").val()},
+        beforeSend:function(){
+        },
+        success:function(data){
+          console.log("Provincias  => ",data);
+
+          $("#provincia-2").empty();
+          $("#provincia-2").append("<option value=''>--Seleccionar--</option>");
+
+          $("#distrito-2").empty();
+          $("#distrito-2").append("<option value=''>--Seleccionar--</option>");
+
+          for (let i = 0; i < data.length; i++) {
+            $("#provincia-2").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+          }
+
+        },
+        error:function(error){
+          alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+        }
+    });
 
   });
 
+  $("#provincia-2").on('change',function(){
+
+    var datos = {'idDepartamento':$("#departamento-2").val(),'idProvincia':$("#provincia-2").val()};
+
+    $.ajax({
+        type:'POST',
+        url:"{{url('distritos')}}",
+        data:datos,
+        beforeSend:function(){
+           console.log("Enviando datos =>",datos);
+        },
+        success:function(data){
+          console.log("Distritos  => ",data);
+
+          $("#distrito-2").empty();
+          $("#distrito-2").append("<option value=''>--Seleccionar--</option>");
+
+          for (let i = 0; i < data.length; i++) {
+            $("#distrito-2").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+          }
+        },
+        error:function(error){
+          alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+        }
+    });
+  });
 
   $("#distrito-2").on('change',function(){
     let idDistrito = $("#distrito-2").val();
@@ -386,7 +654,6 @@ $(document).ready(function() {
                         }
                     }
                 });
-
           },
           error:function(error){
             alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
@@ -399,132 +666,77 @@ $(document).ready(function() {
   });
 
 
-  $("#comp-distrito-1").on('change',function(){
+  $("#departamento-3").on('change',function(){
+    $("#indicador-2").attr('disabled','disabled');
+    $.ajax({
+        type:'POST',
+        url:"{{url('provincias')}}",
+        data:{'idDepartamento':$("#departamento-3").val()},
+        beforeSend:function(){
+        },
+        success:function(data){
+          console.log("Provincias  => ",data);
 
-    let idDistrito1 = $("#comp-distrito-1").val();
-    let idDistrito2 = $("#comp-distrito-2").val();
+          $("#provincia-3").empty();
+          $("#provincia-3").append("<option value=''>--Seleccionar--</option>");
 
-    if( idDistrito1 != '' && idDistrito2 != '' ){
-
-        $.ajax({
-            type:'POST',
-            url:"{{url('contaminacion_distrito1_distrito2')}}",
-            data:{'idDistrito1':idDistrito1,'idDistrito2':idDistrito2},
-            beforeSend:function(){
-            },
-            success:function(data){
-
-                console.log(data);
-
-                // var auxArrayCalidadAireDist1 = [];
-                // var auxArrayCalidadAireDist2 = [];
-
-                // for (let i =0; i < data.length; i++) {
-                //   auxArrayCalidadAireDist1.push(data[i].calidadAire);
-                //   auxArrayCalidadAireDist2.push(data[i].calidadAire);
-                // }
-
-                // var ctx2 = document.getElementById('myChart-2').getContext('2d');
-
-                // var mixedChart2 = new Chart(ctx2, {
-                //     type: 'line',
-                //     data: {
-                //         datasets: [{
-                //             label: 'Distrito 1',
-                //             fill: false,
-                //             data: auxArrayCalidadAireDist1,
-                //             backgroundColor: 'rgb(255, 99, 132)',
-                //             borderColor: 'rgb(255, 99, 132)',
-                //         }, {
-                //             label: 'Distrito 2',
-                //             data: auxArrayCalidadAireDist2,
-                //             fill: false,
-                //             backgroundColor: 'rgb(100, 50, 200)',
-                //             borderColor: 'rgb(100, 50, 200)'
-                //         }],
-                //         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre','Octubre','Noviembre','Diciembre']
-                //     },
-                //     options: {
-                //         responsive: true,
-                //         title: {
-                //             display: true,
-                //             text: 'Comparación Entre Distritos'
-                //         }
-                //     }
-                // });
-
-          },
-          error:function(error){
-            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+          for (let i = 0; i < data.length; i++) {
+            $("#provincia-3").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
           }
-        }); 
-      
-    }else{
-      
-    }
+
+        },
+        error:function(error){
+          alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+        }
+    });
+
   });
 
-  $("#comp-distrito-2").on('change',function(){
 
-    let idDistrito1 = $("#comp-distrito-1").val();
-    let idDistrito2 = $("#comp-distrito-2").val();
+  $("#provincia-3").on('change',function(){
 
-    console.log("Dist");
+    let idProvincia = $("#provincia-3").val();
+    $("#indicador-2").removeAttr('disabled');
 
-    if( idDistrito1 != '' && idDistrito2 != '' ){
+    if( idProvincia != '' && $("#indicador-2").val() != '' ){
 
         $.ajax({
             type:'POST',
-            url:"{{url('contaminacion_distrito1_distrito2')}}",
-            data:{'idDistrito1':idDistrito1,'idDistrito2':idDistrito2},
+            url:"{{url('max_contaminacion_distritos')}}",
+            data:{'idDepartamento':$("#departamento-3").val(),'idProvincia':$("#provincia-3").val(),'idIndicador':$("#indicador-2").val()},
             beforeSend:function(){
             },
             success:function(data){
 
                 console.log(data);
 
-                var arrayDistrito1 = data[0];
-                var arrayDistrito2 = data[1];
+                var auxArrayCalidadAire = [];
+                var auxArrayDistritos = [];
 
-                var auxArrayCalidadAireDist1 = [];
-                var auxArrayCalidadAireDist2 = [];
-
-                for (let i =0; i < arrayDistrito1.length; i++) {
-                  auxArrayCalidadAireDist1.push(arrayDistrito1[i].calidadAire);
+                for (let i =0; i < data.length; i++) {
+                  auxArrayCalidadAire.push(data[i].indice);
+                  auxArrayDistritos.push(data[i].distrito);
                 }
 
-                for (let i =0; i < arrayDistrito2.length; i++) {
-                  auxArrayCalidadAireDist2.push(arrayDistrito2[i].calidadAire);
-                }
+                var ctx2 = document.getElementById('myChart-3').getContext('2d');
 
-                var ctx3 = document.getElementById('myChart-3').getContext('2d');
-
-                var nameDistrito1 = $('#comp-distrito-1 option:selected').text();
-                var nameDistrito2 = $('#comp-distrito-2 option:selected').text();
-
-                var mixedChart3 = new Chart(ctx3, {
+                var mixedChart2 = new Chart(ctx2, {
                     type: 'line',
                     data: {
                         datasets: [{
-                            label: `${nameDistrito1}`,
+                            label: `${arrayIndicadores[parseInt(idIndicador) - 1]}`,
                             fill: false,
-                            data: auxArrayCalidadAireDist1,
+                            data: auxArrayCalidadAire,
                             backgroundColor: 'rgb(255, 99, 132)',
                             borderColor: 'rgb(255, 99, 132)',
-                        }, {
-                            label: `${nameDistrito2}`,
-                            data: auxArrayCalidadAireDist2,
-                            fill: false,
-                            backgroundColor: 'rgb(100, 50, 200)',
-                            borderColor: 'rgb(100, 50, 200)'
                         }],
-                        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre','Octubre','Noviembre','Diciembre']
+                        labels: auxArrayDistritos
                     },
                     options: {
                         responsive: true,
                         title: {
                             display: true,
-                            text: `Comparación entre el distrito ${nameDistrito1} y el distrito ${nameDistrito2}`
+                            text: 'Gráfica de Indicador Máximo por Distrito'
                         }
                     }
                 });
@@ -539,6 +751,216 @@ $(document).ready(function() {
       
     }
   });
+
+  $("#indicador-2").on('change',function(){
+
+    let idProvincia = $("#provincia-3").val();
+    let idIndicador = $("#indicador-2").val();
+
+    if( idProvincia != '' && $("#indicador-2").val() != '' ){
+
+        $.ajax({
+            type:'POST',
+            url:"{{url('max_contaminacion_distritos')}}",
+            data:{'idDepartamento':$("#departamento-3").val(),'idProvincia':$("#provincia-3").val(),'idIndicador':$("#indicador-2").val()},
+            beforeSend:function(){
+            },
+            success:function(data){
+
+                console.log(data);
+
+                var auxArrayCalidadAire = [];
+                var auxArrayDistritos = [];
+
+                for (let i =0; i < data.length; i++) {
+                  auxArrayCalidadAire.push(data[i].indicador);
+                  auxArrayDistritos.push(data[i].distrito);
+                }
+
+                var ctx2 = document.getElementById('myChart-3').getContext('2d');
+
+                var mixedChart2 = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: `${arrayIndicadores[parseInt(idIndicador) - 1]}`,
+                            fill: false,
+                            data: auxArrayCalidadAire,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                        }],
+                        labels: auxArrayDistritos
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Grafica de Indicador Máximo por Distrito'
+                        }
+                    }
+                });
+
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+          }
+        }); 
+      
+    }else{
+      
+    }
+
+  });
+
+
+
+
+  $("#departamento-4").on('change',function(){
+    $("#indicador-3").attr('disabled','disabled');
+    $.ajax({
+        type:'POST',
+        url:"{{url('provincias')}}",
+        data:{'idDepartamento':$("#departamento-4").val()},
+        beforeSend:function(){
+        },
+        success:function(data){
+          console.log("Provincias  => ",data);
+
+          $("#provincia-4").empty();
+          $("#provincia-4").append("<option value=''>--Seleccionar--</option>");
+
+          for (let i = 0; i < data.length; i++) {
+            $("#provincia-4").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+          }
+
+        },
+        error:function(error){
+          alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+        }
+    });
+
+  });
+
+
+  $("#provincia-4").on('change',function(){
+
+    let idProvincia = $("#provincia-4").val();
+    $("#indicador-3").removeAttr('disabled');
+
+    if( idProvincia != '' && $("#indicador-3").val() != '' ){
+
+        $.ajax({
+            type:'POST',
+            url:"{{url('min_contaminacion_distritos')}}",
+            data:{'idDepartamento':$("#departamento-4").val(),'idProvincia':$("#provincia-4").val(),'idIndicador':$("#indicador-3").val()},
+            beforeSend:function(){
+            },
+            success:function(data){
+
+                console.log(data);
+
+                var auxArrayCalidadAire = [];
+                var auxArrayDistritos = [];
+
+                for (let i =0; i < data.length; i++) {
+                  auxArrayCalidadAire.push(data[i].indice);
+                  auxArrayDistritos.push(data[i].distrito);
+                }
+
+                var ctx2 = document.getElementById('myChart-4').getContext('2d');
+
+                var mixedChart2 = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: `${arrayIndicadores[parseInt(idIndicador) - 1]}`,
+                            fill: false,
+                            data: auxArrayCalidadAire,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                        }],
+                        labels: auxArrayDistritos
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Gráfica de Indicador Mínimo por Distrito'
+                        }
+                    }
+                });
+
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+          }
+        }); 
+      
+    }else{
+      
+    }
+  });
+
+  $("#indicador-3").on('change',function(){
+
+    let idProvincia = $("#provincia-4").val();
+    let idIndicador = $("#indicador-3").val();
+
+    if( idProvincia != '' && $("#indicador-3").val() != '' ){
+
+        $.ajax({
+            type:'POST',
+            url:"{{url('min_contaminacion_distritos')}}",
+            data:{'idDepartamento':$("#departamento-4").val(),'idProvincia':$("#provincia-4").val(),'idIndicador':$("#indicador-3").val()},
+            beforeSend:function(){
+            },
+            success:function(data){
+
+                console.log(data);
+
+                var auxArrayCalidadAire = [];
+                var auxArrayDistritos = [];
+
+                for (let i =0; i < data.length; i++) {
+                  auxArrayCalidadAire.push(data[i].indicador);
+                  auxArrayDistritos.push(data[i].distrito);
+                }
+
+                var ctx2 = document.getElementById('myChart-4').getContext('2d');
+
+                var mixedChart2 = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        datasets: [{
+                            label: `${arrayIndicadores[parseInt(idIndicador) - 1]}`,
+                            fill: false,
+                            data: auxArrayCalidadAire,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                        }],
+                        labels: auxArrayDistritos
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Grafica de Indicador Mínimo por Distrito'
+                        }
+                    }
+                });
+
+          },
+          error:function(error){
+            alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+          }
+        }); 
+      
+    }else{
+      
+    }
+
+  });
+
 
 
   $('.navbar-collapse ul li a').click(function(){

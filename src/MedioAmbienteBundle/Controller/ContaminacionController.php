@@ -117,12 +117,39 @@ class ContaminacionController extends Controller
 
 
     /**
+     * @Route("/departamentos",name="departamentos")
+    */
+    public function detalleDepartamentosAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager(); 
+        $result = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getDepartamentos();
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @Route("/provincias",name="provincias")
+    */
+    public function detalleProvinciasAction(Request $request){
+
+        $idDepartamento = $request->get('idDepartamento');
+
+        $em = $this->getDoctrine()->getManager(); 
+        $result = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getProvincias($idDepartamento);
+
+        return new JsonResponse($result);
+    }
+
+    /**
      * @Route("/distritos",name="distritos")
     */
     public function detalleDistritosAction(Request $request){
 
+        $idDepartamento = $request->get('idDepartamento');
+        $idProvincia = $request->get('idProvincia');
+
         $em = $this->getDoctrine()->getManager(); 
-        $result = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getDistritos();
+        $result = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getDistritos($idDepartamento,$idProvincia);
 
         return new JsonResponse($result);
     }
@@ -181,24 +208,60 @@ class ContaminacionController extends Controller
         return new JsonResponse($result);
     }
 
-    /**
-     * @Route("/panel/contaminacion/distrito1-distrito2",name="contaminacion_distrito1_distrito2")
-    */
-    public function contaminacionDistrito1Distrito2Action(Request $request){
+    // /**
+    //  * @Route("/panel/contaminacion/distrito1-distrito2",name="contaminacion_distrito1_distrito2")
+    // */
+    // public function contaminacionDistrito1Distrito2Action(Request $request){
 
-        $idDistrito1 = $request->get('idDistrito1');
-        $idDistrito2 = $request->get('idDistrito2');
+    //     $idDistrito1 = $request->get('idDistrito1');
+    //     $idDistrito2 = $request->get('idDistrito2');
+
+    //     $array = array();
+
+    //     $em = $this->getDoctrine()->getManager(); 
+    //     $result1 = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getContaminacionByDistrito($idDistrito1);
+    //     $result2 = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getContaminacionByDistrito($idDistrito2);
+
+    //     array_push($array,$result1);
+    //     array_push($array,$result2);
+
+    //     return new JsonResponse($array);
+    // }
+
+    /**
+     * @Route("/panel/contaminacion/max-comparacion-distritos",name="max_contaminacion_distritos")
+    */
+    public function maxIndicadorComparacionDistritosAction(Request $request){
+
+        $idDepartamento = $request->get('idDepartamento');
+        $idProvincia = $request->get('idProvincia');
+        $idIndicador = $request->get('idIndicador');
 
         $array = array();
 
         $em = $this->getDoctrine()->getManager(); 
-        $result1 = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getContaminacionByDistrito($idDistrito1);
-        $result2 = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getContaminacionByDistrito($idDistrito2);
+        $result = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getMaxIndicadorByDistrito($idDepartamento,$idProvincia,$idIndicador);
 
-        array_push($array,$result1);
-        array_push($array,$result2);
-
-        return new JsonResponse($array);
+        return new JsonResponse($result);
     }
+
+
+    /**
+     * @Route("/panel/contaminacion/min-comparacion-distritos",name="min_contaminacion_distritos")
+    */
+    public function minIndicadorComparacionDistritosAction(Request $request){
+
+        $idDepartamento = $request->get('idDepartamento');
+        $idProvincia = $request->get('idProvincia');
+        $idIndicador = $request->get('idIndicador');
+
+        $array = array();
+
+        $em = $this->getDoctrine()->getManager(); 
+        $result = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getMinIndicadorByDistrito($idDepartamento,$idProvincia,$idIndicador);
+
+        return new JsonResponse($result);
+    }
+
 
 }

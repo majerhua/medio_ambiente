@@ -54,8 +54,22 @@ class ContaminacionRepository extends \Doctrine\ORM\EntityRepository
 
 	public function getContaminacion(){
 
-	    $query = "	SELECT cont.id id,dist.nombre distrito, cont.calidadAire, cont.humedad, cont.temperatura, cont.co2, cont.anio, cont.mes FROM contaminacion cont
-	    			INNER JOIN distrito dist ON dist.id = cont.idDistrito;";
+	    $query = "	SELECT 
+	    			cont.id id,
+	    			dep.name departamento,
+	    			prov.name provincia,
+					dist.name distrito,
+					cont.calidadAire,
+					cont.humedad,
+					cont.temperatura,
+					cont.co2,
+					cont.anio,
+					cont.mes 
+					FROM regions dep
+	    			INNER JOIN provinces prov ON prov.region_id = dep.id
+	    			INNER JOIN districts dist ON dist.province_id = dep.id 
+	    			INNER JOIN contaminacion cont ON cont.idDistrito = dist.id
+	    			WHERE dist.region_id = prov.id;";
 	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
 	    $stmt->execute();
 	    $contaminacion = $stmt->fetchAll();
@@ -66,7 +80,7 @@ class ContaminacionRepository extends \Doctrine\ORM\EntityRepository
 	public function getContaminacionByDistrito($idDistrito){
 
 	    $query ="SELECT cont.id id,
-	    				dist.nombre distrito, 
+	    				dist.name distrito, 
 	    				cont.calidadAire,
 	    				cont.humedad,
 	    				cont.temperatura,
@@ -74,7 +88,7 @@ class ContaminacionRepository extends \Doctrine\ORM\EntityRepository
 	    				cont.anio,
 	    				cont.mes 
 	    			FROM contaminacion cont
-	    			INNER JOIN distrito dist ON dist.id = cont.idDistrito
+	    			INNER JOIN districts dist ON dist.id = cont.idDistrito
                     WHERE cont.idDistrito = $idDistrito;";
 	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
 	    $stmt->execute();
@@ -97,12 +111,12 @@ class ContaminacionRepository extends \Doctrine\ORM\EntityRepository
 		}
 
 		$query =   "";
-	    $query .=  "SELECT cont.id id,dist.nombre distrito,"; 
+	    $query .=  "SELECT cont.id id,dist.name distrito,"; 
 	    $query .=  $subquery;
 	    $query .=	"	cont.anio,
 	    				cont.mes 
 	    				FROM contaminacion cont
-	    				INNER JOIN distrito dist ON dist.id = cont.idDistrito
+	    				INNER JOIN districts dist ON dist.id = cont.idDistrito
                     	WHERE cont.idDistrito = $idDistrito;";
 	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
 	    $stmt->execute();
@@ -120,13 +134,102 @@ class ContaminacionRepository extends \Doctrine\ORM\EntityRepository
 	}
 
 
-	public function getDistritos(){
+	public function getDepartamentos(){
 
-	    $query = "SELECT *FROM distrito;";
+	    $query = "SELECT *FROM regions;";
 	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
 	    $stmt->execute();
-	    $distrito = $stmt->fetchAll();
-	    return $distrito;
+	    $departamentos = $stmt->fetchAll();
+	    return $departamentos;
 	}
+
+	public function getProvincias($idDepartamento){
+
+	    $query = "SELECT *FROM provinces WHERE region_id = '$idDepartamento';";
+	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+	    $stmt->execute();
+	    $provincias = $stmt->fetchAll();
+	    return $provincias;
+	}
+
+	public function getDistritos($idDepartamento,$idProvincia){
+
+	    $query = "	SELECT * FROM districts 
+	    			WHERE province_id = '$idDepartamento' and
+	    			region_id = '$idProvincia';
+	    			ORDER BY name  ASC";
+	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+	    $stmt->execute();
+	    $distritos = $stmt->fetchAll();
+	    return $distritos;
+	}
+
+
+	public function getMaxIndicadorByDistrito($idDepartamento,$idProvincia,$idIndicador){
+
+		$subquery = "";
+
+		if( $idIndicador == 1 ){
+			$subquery = "MAX(cont.calidadAire) indicador";
+		}else if( $idIndicador == 2 ){
+			$subquery = "MAX(cont.humedad) indicador";
+		}else if( $idIndicador == 3 ){
+			$subquery = "MAX(cont.temperatura) indicador";
+		}else if( $idIndicador == 4 ){
+			$subquery = "MAX(cont.co2) indicador";
+		}
+
+		$query =   "";
+	    $query .=  "SELECT dist.name distrito,"; 
+	    $query .=  $subquery;
+	    $query .=	" 
+					FROM regions dep
+	    			INNER JOIN provinces prov ON prov.region_id = dep.id
+	    			INNER JOIN districts dist ON dist.province_id = dep.id 
+	    			INNER JOIN contaminacion cont ON cont.idDistrito = dist.id
+	    			WHERE dist.region_id = prov.id AND 
+                    dist.region_id = '$idProvincia' AND
+                    dist.province_id = '$idDepartamento'
+                    GROUP BY dist.name";
+
+	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+	    $stmt->execute();
+	    $distritos = $stmt->fetchAll();
+	    return $distritos;
+	}
+
+	public function getMinIndicadorByDistrito($idDepartamento,$idProvincia,$idIndicador){
+
+		$subquery = "";
+
+		if( $idIndicador == 1 ){
+			$subquery = "MIN(cont.calidadAire) indicador";
+		}else if( $idIndicador == 2 ){
+			$subquery = "MIN(cont.humedad) indicador";
+		}else if( $idIndicador == 3 ){
+			$subquery = "MIN(cont.temperatura) indicador";
+		}else if( $idIndicador == 4 ){
+			$subquery = "MIN(cont.co2) indicador";
+		}
+
+		$query =   "";
+	    $query .=  "SELECT dist.name distrito,"; 
+	    $query .=  $subquery;
+	    $query .=	" 
+					FROM regions dep
+	    			INNER JOIN provinces prov ON prov.region_id = dep.id
+	    			INNER JOIN districts dist ON dist.province_id = dep.id 
+	    			INNER JOIN contaminacion cont ON cont.idDistrito = dist.id
+	    			WHERE dist.region_id = prov.id AND 
+                    dist.region_id = '$idProvincia' AND
+                    dist.province_id = '$idDepartamento'
+                    GROUP BY dist.name";
+
+	    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
+	    $stmt->execute();
+	    $distritos = $stmt->fetchAll();
+	    return $distritos;
+	}
+
 
 }

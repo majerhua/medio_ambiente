@@ -50,7 +50,9 @@ security:
         - {path: ^/distritos$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/panel/contaminacion/distrito-indicador$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/panel/contaminacion/distrito$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/panel/contaminacion/distrito1-distrito2$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/panel/contaminacion, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - {path: ^/panel, roles: [ROLE_ADMIN,ROLE_USER]}
         - {path: ^/panel/usuarios, roles: [ROLE_ADMIN]}

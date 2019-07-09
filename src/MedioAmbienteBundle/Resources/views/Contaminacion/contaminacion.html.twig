@@ -71,7 +71,23 @@
     <div class="page-content">
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
+
+          <div class="form-group">
+            <label >Departamento</label>
+            <select id="ins-departamento" class="form-control">
+              <option value="">--Seleccionar--</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label >Provincia</label>
+            <select id="ins-provincia" class="form-control">
+              <option value="">--Seleccionar--</option>
+            </select>
+          </div>
+
+
           <div class="form-group">
             <label >Distrito</label>
             <select id="ins-distrito" class="form-control">
@@ -79,19 +95,19 @@
             </select>
           </div>
 
-            <div class="form-group">
-                <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
-                    <div style="width:49%;padding-right:1%;">
-                      <label >Calidad Aire(INCA)</label>
-                      <input type="text" id="ins-calidad-aire" class="form-control"   placeholder="Calidad Aire(INCA)">
-                    </div>
-        
-                    <div style="width:49%;padding-left:1%;">
-                      <label >Humedad</label>
-                      <input type="text" id="ins-humedad" class="form-control"   placeholder="Humedad">
-                    </div> 
-                </div>
-            </div>
+          <div class="form-group">
+              <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
+                  <div style="width:49%;padding-right:1%;">
+                    <label >Calidad Aire</label>
+                    <input type="text" id="ins-calidad-aire" class="form-control"   placeholder="Calidad Aire(INCA)">
+                  </div>
+      
+                  <div style="width:49%;padding-left:1%;">
+                    <label >Humedad</label>
+                    <input type="text" id="ins-humedad" class="form-control"   placeholder="Humedad">
+                  </div> 
+              </div>
+          </div>
 
             <div class="form-group">
                 <div style="display:flex;flex-wrap:wrap;flex-direction:row;width:100%;padding:0;" >
@@ -138,16 +154,18 @@
           <button id="guardar-contaminacion" class="btn btn-primary">Guardar</button>
         </div>
         
-        <div class="col-md-8" >
+        <div class="col-md-9" >
             <table class="table" id="table-contaminacion" >
                 <thead>
-                    <th>Distrito</th>
-                    <th>Calidad Aire(INCA)</th>
-                    <th>Humedad</th>
-                    <th>Temperatura</th>
-                    <th>Co2</th>
-                    <th>Anio</th>
-                    <th>Mes</th>
+                    <th style="font-size:0.8em;">Departamento</th>
+                    <th style="font-size:0.8em;">Provincia</th>
+                    <th style="font-size:0.8em;">Distrito</th>
+                    <th style="font-size:0.8em;">Calidad Aire</th>
+                    <th style="font-size:0.8em;">Humedad</th>
+                    <th style="font-size:0.8em;">Temperatura</th>
+                    <th style="font-size:0.8em;">Co2</th>
+                    <th style="font-size:0.8em;">Anio</th>
+                    <th style="font-size:0.8em;">Mes</th>
                     <th></th>
                     <th></th>
                 </thead>
@@ -175,12 +193,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="row">
+        <div style="display:flex;flex-direction:row;justify-content:space-around;">
           <input type="hidden" id="eli-id">
-          <div class="col-md-3  offset-md-3 ">
+          <div>
             <button class="btn btn-danger" data-dismiss="modal" onclick="eliminarContaminacion()" >Aceptar</button>
           </div>
-          <div class="col-md-3">
+          <div>
             <button class="btn btn-info" data-dismiss="modal">Cancelar</button>
           </div>
         </div>
@@ -345,12 +363,12 @@ Dashboard.init();
 
  
 
-  function getDistritos(){
+  function getDepartamentos(){
 
     return new Promise( (resolve,reject)=>{
       $.ajax({
           type:'POST',
-          url:"{{url('distritos')}}",
+          url:"{{url('departamentos')}}",
           beforeSend:function(){
           },
           success:function(data){
@@ -360,26 +378,84 @@ Dashboard.init();
             alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
             reject(error);
           }
-        }); 
+      }); 
     });
   }
 
-  var distritos = getDistritos();
+  var departamentos = getDepartamentos();
 
-  distritos.then(function(result){
+  departamentos.then(function(result){
 
-    $("#ins-distrito").empty();
-    $("#ins-distrito").append("<option value=''>--Seleccionar--</option>");
-
-    $("#edi-distrito").empty();
-    $("#edi-distrito").append("<option value=''>--Seleccionar--</option>");
+    $("#ins-departamento").empty();
+    $("#ins-departamento").append("<option value=''>--Seleccionar--</option>");
 
     for (let i = 0; i < result.length; i++) {
-      $("#ins-distrito").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
-      $("#edi-distrito").append(`<option value='${result[i].id}'>${result[i].nombre}</option>`);
+      $("#ins-departamento").append(`<option value='${result[i].id}'>${result[i].name}</option>`);
+      $("#edi-departamento").append(`<option value='${result[i].id}'>${result[i].name}</option>`);
     }
-    console.log("Distritos =>",result);
+    console.log("Departamentos =>",result);
   });
+
+
+  $("#ins-departamento").on('change',function(){
+
+    $.ajax({
+        type:'POST',
+        url:"{{url('provincias')}}",
+        data:{'idDepartamento':$("#ins-departamento").val()},
+        beforeSend:function(){
+        },
+        success:function(data){
+          console.log("Provincias  => ",data);
+
+          $("#ins-provincia").empty();
+          $("#ins-provincia").append("<option value=''>--Seleccionar--</option>");
+
+          $("#ins-distrito").empty();
+          $("#ins-distrito").append("<option value=''>--Seleccionar--</option>");
+
+          for (let i = 0; i < data.length; i++) {
+            $("#ins-provincia").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+            $("#edi-provincia").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+          }
+
+        },
+        error:function(error){
+          alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+        }
+    });
+
+  });
+
+  $("#ins-provincia").on('change',function(){
+
+    var datos = {'idDepartamento':$("#ins-departamento").val(),'idProvincia':$("#ins-provincia").val()};
+
+    $.ajax({
+        type:'POST',
+        url:"{{url('distritos')}}",
+        data:datos,
+        beforeSend:function(){
+           console.log("Enviando datos =>",datos);
+        },
+        success:function(data){
+          console.log("Distritos  => ",data);
+
+          $("#ins-distrito").empty();
+          $("#ins-distrito").append("<option value=''>--Seleccionar--</option>");
+
+          for (let i = 0; i < data.length; i++) {
+            $("#ins-distrito").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+            $("#edi-distrito").append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+          }
+        },
+        error:function(error){
+          alertify.error("<p>Ocurrio un Error en el Sistema!.</p>");
+        }
+    });
+  });
+
+
 
 
     $("#guardar-contaminacion").on('click',function(){
@@ -402,6 +478,7 @@ Dashboard.init();
             console.log("Enviando Datos =>",datos);
           },
           success:function(data){
+            console.log("Response => ",data);
             if(data!=0){
               
               var table = $('#table-contaminacion').DataTable();
