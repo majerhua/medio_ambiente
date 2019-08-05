@@ -64,7 +64,6 @@ class ContaminacionController extends Controller
     public function modificarContaminacionAction(Request $request){
 
     	$id = $request->get('id');
-    	$distrito = $request->get('distrito');
     	$calidadAire = $request->get('calidadAire');
         $humedad = $request->get('humedad');
         $temperatura = $request->get('temperatura');
@@ -229,9 +228,9 @@ class ContaminacionController extends Controller
     // }
 
     /**
-     * @Route("/panel/contaminacion/max-comparacion-distritos",name="max_contaminacion_distritos")
+     * @Route("/panel/contaminacion/avg-comparacion-distritos",name="avg_contaminacion_distritos")
     */
-    public function maxIndicadorComparacionDistritosAction(Request $request){
+    public function avgIndicadorComparacionDistritosAction(Request $request){
 
         $idDepartamento = $request->get('idDepartamento');
         $idProvincia = $request->get('idProvincia');
@@ -240,7 +239,7 @@ class ContaminacionController extends Controller
         $array = array();
 
         $em = $this->getDoctrine()->getManager(); 
-        $result = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getMaxIndicadorByDistrito($idDepartamento,$idProvincia,$idIndicador);
+        $result = $em->getRepository('MedioAmbienteBundle:Contaminacion')->getAvgIndicadorByDistrito($idDepartamento,$idProvincia,$idIndicador);
 
         return new JsonResponse($result);
     }
@@ -262,6 +261,4 @@ class ContaminacionController extends Controller
 
         return new JsonResponse($result);
     }
-
-
 }

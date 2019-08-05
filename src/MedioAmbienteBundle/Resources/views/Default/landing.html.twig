@@ -198,7 +198,7 @@
   <div class="row">
 
     <div class="row">
-      <h2>Comparacion de Maximo Indice de Contaminacion Por Distritos</h2>
+      <h2>Comparacion de Indice de Contaminacion Por Distritos</h2>
     </div>
 
     <div class="row" >
@@ -261,7 +261,7 @@
   </div>
 
 
-  <div class="row">
+{#   <div class="row">
 
     <div class="row">
       <h2>Comparación de Minimo Indice de Contaminacion Por Distritos</h2>
@@ -324,7 +324,7 @@
       </div>
     </div>
   
-  </div>
+  </div> #}
 
 </section>
 
@@ -702,7 +702,7 @@ $(document).ready(function() {
 
         $.ajax({
             type:'POST',
-            url:"{{url('max_contaminacion_distritos')}}",
+            url:"{{url('avg_contaminacion_distritos')}}",
             data:{'idDepartamento':$("#departamento-3").val(),'idProvincia':$("#provincia-3").val(),'idIndicador':$("#indicador-2").val()},
             beforeSend:function(){
             },
@@ -761,7 +761,7 @@ $(document).ready(function() {
 
         $.ajax({
             type:'POST',
-            url:"{{url('max_contaminacion_distritos')}}",
+            url:"{{url('avg_contaminacion_distritos')}}",
             data:{'idDepartamento':$("#departamento-3").val(),'idProvincia':$("#provincia-3").val(),'idIndicador':$("#indicador-2").val()},
             beforeSend:function(){
             },

@@ -26,9 +26,9 @@ class ContaminacionRepository extends \Doctrine\ORM\EntityRepository
         //}
 	}
 
-	public function modificarContaminacion($distrito,$calidadAire,$humedad,$temperatura,$co2,$anio,$mes,$id){
+	public function modificarContaminacion($calidadAire,$humedad,$temperatura,$co2,$anio,$mes,$id){
 		//try {
-		    $query = "UPDATE contaminacion SET idDistrito='$distrito',calidadAire='$calidadAire',humedad='$humedad',temperatura='$temperatura',co2='$co2',anio='$anio',mes='$mes' WHERE id=$id; ";
+		    $query = "UPDATE contaminacion SET calidadAire='$calidadAire',humedad='$humedad',temperatura='$temperatura',co2='$co2',anio='$anio',mes='$mes' WHERE id=$id; ";
 		    $stmt = $this->getEntityManager()->getConnection()->prepare($query);
 		    $stmt->execute();
         $result = '1';
@@ -165,18 +165,18 @@ class ContaminacionRepository extends \Doctrine\ORM\EntityRepository
 	}
 
 
-	public function getMaxIndicadorByDistrito($idDepartamento,$idProvincia,$idIndicador){
+	public function getAvgIndicadorByDistrito($idDepartamento,$idProvincia,$idIndicador){
 
 		$subquery = "";
 
 		if( $idIndicador == 1 ){
-			$subquery = "MAX(cont.calidadAire) indicador";
+			$subquery = "AVG(cont.calidadAire) indicador";
 		}else if( $idIndicador == 2 ){
-			$subquery = "MAX(cont.humedad) indicador";
+			$subquery = "AVG(cont.humedad) indicador";
 		}else if( $idIndicador == 3 ){
-			$subquery = "MAX(cont.temperatura) indicador";
+			$subquery = "AVG(cont.temperatura) indicador";
 		}else if( $idIndicador == 4 ){
-			$subquery = "MAX(cont.co2) indicador";
+			$subquery = "AVG(cont.co2) indicador";
 		}
 
 		$query =   "";
